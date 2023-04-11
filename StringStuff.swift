@@ -66,6 +66,8 @@ func blowUp(lines: Array<String>) -> Array<String> {
     var isNum = false
     // Looping through the array of lines that was passed to this function
     for line in lines {
+        // skipping the first line
+    
         // variable initialization
         var counter2 = 0
         var newSentence = ""
@@ -73,28 +75,29 @@ func blowUp(lines: Array<String>) -> Array<String> {
         let characters = Array(line)
         var newLine = [String]()
         // iterating through the characters in the line
-        for char in characters {
+        for piece in characters {
             // checking to ensure its not the last character in the list
             if (counter2 != characters.count - 1) {
                 // Checking to see if the current character is a number or not
-                if let charNum = Int(character) {
+                if let charNum = Int(String(piece)) {
                     isNum = true
                 } else {
                     isNum = false
                 }
                 if (isNum) {
+                    let charNum = Int(String(piece))
                     // If it is a number, than loop through that many times
-                    for (i = 0; i < charNum; i++) {
+                    for _ in 1...charNum! {
                         // appending the next character to the newLine
-                        newLine.append(characters[counter2 + 1])
+                        newLine.append(String(characters[counter2 + 1]))
                     }
-                } else [
+                } else {
                     // Adding the character to the newLine
-                    newLine.append(character)
-                ]
+                    newLine.append(String(piece))
+                }
             } else {
                 // adding the character to the newLine
-                newLine.append(character)
+                newLine.append(String(piece))
             }
             counter2 += 1
         }
@@ -104,7 +107,7 @@ func blowUp(lines: Array<String>) -> Array<String> {
         }
         // adding the new sentence to the array that will be returned to main
         newLines.append(newSentence)
-        counter1 ++
+        counter1 += 1
     }
     // returning to main
     return newLines
@@ -114,50 +117,66 @@ func blowUp(lines: Array<String>) -> Array<String> {
 func maxRun(lines: Array<String>) -> Array<String> {
     // Variable initialization
     var newLines = [String]()
-    newLines.append("Max Run Program output: ")
+    newLines.append("\n\nMax Run Program output: ")
+    var lineCounter = 0
     var counter1 = 1
     // Looping through the lines array
     for line in lines {
-        // More variables that are needed inside of the loop
-        var currRun = 0
-        var topRun = 1
-        var counter2 = 0
-        // creating the array that breaks up the string into individual chars
-        let characters = Array(line)
+        if (lineCounter != 0) {
+            // More variables that are needed inside of the loop
+            var currRun = 0
+            var topRun = 1
+            var counter2 = 0
+            // creating the array that breaks up the string into individual chars
+            let characters = Array(line)
 
-        // Setting the lastChar variable to the first place in the array
-        var lastChar = characters[0]
+            // Setting the lastChar variable to the first place in the array
+            var lastChar = characters[0]
 
-        for char in characters {
-            if (counter2 != characters.count - 1) {
-                if (char == lastChar) {
-                    currRun += 1
-                } else {
-                    if (currRun > topRun) {
-                        topRun = currRun
+            for char in characters {
+                // Making sure the character isn't the last one in the array
+                if (counter2 != characters.count - 1) {
+                    // Checking to see if there is a run
+                    if (char == lastChar) {
+                        // adding to the current run
+                        currRun += 1
+                    } else {
+                        // Updating the top run
+                        if (currRun > topRun) {
+                            topRun = currRun
+                        }
+                        // resetting the current run
+                        currRun = 1
                     }
-                    currRun = 1
-                }
-                counter2 += 1
-                // Setting the last char so that the next one can be compared
-                // to this one
-                lastChar = char
-            } else {
-                if (char == lastChar) {
-                    currRun += 1
-                    if (currRun > topRun) {
-                        topRun = currRun
-                    }
+                    counter2 += 1
+                    // Setting the last char so that the next one can be compared
+                    // to this one
+                    lastChar = char
                 } else {
-                    if (currRun > topRun) {
-                        topRun = currRun
+                    // Checking to see if there is a run
+                    if (char == lastChar) {
+                        // updating the run
+                        currRun += 1
+                        // checking to see if there is a new top run
+                        if (currRun > topRun) {
+                            topRun = currRun
+                        }
+                    } else {
+                        // checking to see if theres a new run
+                        if (currRun > topRun) {
+                            topRun = currRun
+                        }
                     }
                 }
             }
+            // creating the string to add to the list
+            let theTopRun = String("\(topRun)")
+            // adding to the list
+            newLines.append(theTopRun) 
+            counter1 += 1
         }
-        let theTopRun = String("\(topRun)")
-        newLines.append(theTopRun) 
-        counter1 += 1
+        lineCounter += 1
     }
+    // returning to main
     return newLines
 }

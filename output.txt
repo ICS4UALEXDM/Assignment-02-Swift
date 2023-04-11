@@ -1,8 +1,20 @@
+Blow Up Program output: 
+jjjjja111111113rrrras
+aaaaaaaaasdawwwwwwwwww3
+hels2
+dhssskkk2
+asdaaaaaaaaasd
+osdak111
+!33@@@@$**(((()
+asdasdasd
+
+
 Max Run Program output: 
-4
-3
-2
-4
+8
+10
 1
 3
-2
+9
+3
+4
+1
